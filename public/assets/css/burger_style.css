@@ -1,0 +1,65 @@
+body {
+    color: #ffffff;
+    background-color: #000000;
+    background-image: url("../img/flames.jpg");
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    background-attachment: fixed;
+}
+
+h1, h4 {
+    text-align: center;
+}
+
+.img {
+    text-align: center;
+}
+
+input[type=text] {
+    color: #ffffff;
+    background-color: #800000;
+    border: 5px solid #e60000;
+    margin: 5px;
+    padding: 3px;
+}
+
+.uneaten {
+    width: 45%;
+    margin: 15px;
+    float: left;
+}
+
+.eaten {
+    width: 45%;
+    margin: 15px;
+    float: right;
+}
+
+.form {
+    width: 100%;
+    clear: both;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+#newBurger {
+    margin: auto;
+    display: inline-block;
+}
+
+li {
+    color: #800000;
+    background-color: #ffff00;
+    border: 3px solid #e60000;
+    padding: 5px;
+    margin: 5px;
+}
+
+.devour, .undevour {
+    float: right;
+}
+
+br {
+    clear: left;
+}

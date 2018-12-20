@@ -1,0 +1,105 @@
+<h1>DEMOCRATICALLY ELECTED BURGER OFFICIAL</h1>
+<h4>not to be confused with Burger-reigning monarchs</h4>
+
+<div class="img"><img src="../assets/img/burger.jpeg"></div>
+
+<div class="form">
+    <form class="addBurger">
+        <input type="text" id="newBurger" name="burger_name">
+        <button type="submit">Add New Burger</button>
+    </form>
+</div>
+
+<div class="uneaten">
+    <ul>
+    {{#each burgers}}
+        {{#unless devoured}}
+            <li>
+                {{burger_name}}:
+                <button class="devour" data-id="{{burger_id}}" data-eaten-status="{{devoured}}">
+		            EAT ME!!!
+	            </button>
+            </li>
+        {{/unless}}
+    {{/each}}
+    </ul>
+</div>
+
+<div class="eaten">
+    <ul>
+    {{#each burgers}}
+        {{#if devoured}}
+            <li>
+                {{burger_name}}:
+                <button class="undevour" data-id="{{burger_id}}" data-eaten-status="{{devoured}}">
+		            uh...un-eat me...
+	            </button>
+            </li>
+        {{/if}}
+    {{/each}}
+    </ul>
+</div>
+
+<script text="javascript/text">
+$(function() {
+    $(".addBurger").on("submit", function(event) {
+        event.preventDefault();
+
+        var newBurger = {
+            burger_name: $("#newBurger").val().trim()
+        };
+
+        console.log(newBurger);
+        
+        $.ajax("/api/burgers", {
+            type: "POST",
+            data: newBurger
+        }).then(function() {
+            console.log("New burger added: " + newBurger);
+            location.reload();
+        });
+    });
+
+    $(".devour").on("click", function(event) {
+        var id = $(this).data("id");
+        var state = $(this).data("eaten-status");
+        state+=1;
+
+        console.log("ID:" + id);
+        console.log("State: " + state);
+
+        var eatenState = {
+            devoured: state
+        };
+
+        console.log("EatenState" + eatenState);
+
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: eatenState
+        }).then(function() {
+                console.log("Was the burger eaten? " + eatenState);
+                location.reload();
+        });
+    });
+
+    $(".undevour").on("click", function(event) {
+        var id = $(this).data("id");
+        var state = $(this).data("eaten-status");
+        state-=1;
+
+        var eatenState = {
+            devoured: state
+        };
+
+        console.log("EatenState" + eatenState);
+
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: eatenState
+        }).then(function() {
+            location.reload();
+        });
+    });
+});
+</script>
